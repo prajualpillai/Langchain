@@ -1,5 +1,7 @@
 import os
-from langchain.llms import OpenAI
+import langchain
+from langchain_openai import OpenAI
+from langchain.cache import InMemoryCache
 
 class LlmIntegration:
 
@@ -8,12 +10,14 @@ class LlmIntegration:
         f = open('configs/key.txt')
         os.environ["OPENAI_API_KEY"] = f.read()
         self.llm = OpenAI()
+        langchain.llm_cache = InMemoryCache()
+
     
 
     def get_results(self, prompt):
         
         if type(prompt) == str:
-            result = self.llm(prompt)
+            result = self.llm.invoke(prompt)
         else:
             result = self.llm.generate(prompt)
 
@@ -25,8 +29,10 @@ if __name__=="__main__":
 
     obj = LlmIntegration()
     prompt = "Generate a funny quaote about the sun"
-    print("Text Promt: ", obj.get_results(prompt))
+    # print("Text Promt: ", obj.get_results(prompt))
 
+    # for i in range(2):
+    #     print("Text Promt: ", obj.get_results(prompt))
     p2 = ["tell a fact about india", "tell a fact about Kollam"]
     result = obj.get_results(p2)
 
