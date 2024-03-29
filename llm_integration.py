@@ -2,6 +2,7 @@ import os
 import langchain
 from langchain_openai import OpenAI
 from langchain.cache import InMemoryCache
+from langchain.prompts import PromptTemplate
 
 class LlmIntegration:
 
@@ -33,7 +34,7 @@ if __name__=="__main__":
 
     # for i in range(2):
     #     print("Text Promt: ", obj.get_results(prompt))
-    p2 = ["tell a fact about india", "tell a fact about Kollam"]
+    p2 = ["tell a fact about india", "tell a fact about india"]
     result = obj.get_results(p2)
 
     for i in result.generations:
